@@ -7,7 +7,12 @@ from mininet.link import TCLink
 from mininet.log import setLogLevel, info
 
 import os
+import signal
+import sys
 
+def signal_handler(sig, frame):
+    os.system('sudo mn -c') # destroy the network
+    sys.exit(0)
 
 def createNet():
     net = Mininet( 
@@ -21,6 +26,7 @@ def createNet():
     controller = RemoteController("c1", ip="127.0.0.1", port=6633)
     net.addController(controller)
 
+    signal.signal(signal.SIGINT, signal_handler)
 
     host_config = dict(inNamespace=True)
     switch_config = dict(bw=20)
