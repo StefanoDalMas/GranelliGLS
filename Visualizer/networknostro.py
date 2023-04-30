@@ -26,7 +26,7 @@ def createNet():
     switch_config = dict(bw=20)
 
      #create switch nodes
-    for i in range(5):
+    for i in range(3):
         sconfig = {"dpid": "%016x" % (i + 1)}
         net.addSwitch("s%d" % (i + 1), **sconfig)
 
@@ -39,19 +39,16 @@ def createNet():
     net.addLink("s2","s3", **switch_config)
     net.addLink("s1","s3", **switch_config)
 
-    net.addLink("s4","s1", **switch_config)
-    net.addLink("s5","s2", **switch_config)
-
     # host connections
-    net.addLink("h1","s4", **host_config)
-    net.addLink("h2","s4", **host_config)
+    net.addLink("h1","s1", **host_config)
+    net.addLink("h2","s1", **host_config)
 
-    net.addLink("h3","s5", **host_config)
-    net.addLink("h4","s5", **host_config)
-    net.addLink("h5","s4", **host_config)
-    net.addLink("h6","s5", **host_config)
-    net.addLink("h7","s3", **host_config)
-    net.addLink("h8","s4", **host_config)
+    net.addLink("h3","s2", **host_config)
+    net.addLink("h4","s2", **host_config)
+    net.addLink("h5","s1", **host_config)
+    net.addLink("h6","s2", **host_config)
+    net.addLink("h7","s1", **host_config)
+    net.addLink("h8","s3", **host_config)
 
     net.build()
     info( '*** Starting network\n')
