@@ -1,7 +1,7 @@
 var CONF = {
     image: {
-        width: 50,
-        height: 40
+        width: 70,
+        height: 70
     },
     force: {
         width: 960,
@@ -24,6 +24,7 @@ function trim_zero(obj) {
     return String(obj).replace(/^0+/, "");
 }
 function getInfo(obj){
+    // here you can modify the text on each node
     if(obj.dpid!=undefined){
         return "dpid: "+ String(obj.dpid).replace(/^0+/, "");
     }else{
@@ -31,7 +32,7 @@ function getInfo(obj){
         if(obj.ipv4[0]!=undefined)
             tmp=obj.ipv4[0]
 
-        return "mac: "+obj.mac+" ipv4: "+tmp
+        return "mac: "+obj.mac//+" ipv4: "+tmp
     }
 }
 
@@ -40,28 +41,29 @@ function dpid_to_int(dpid) {
 }
 function image(tmp){
     if (tmp!=undefined){
-        return "./router.svg"
+        return "./router.png"
     }else{
-        return "./host.svg"
+        return "./host.png"
     }
 }
-function downloadFiles(data, file_name, file_type) {
-    var file = new Blob([data], {type: file_type});
-    if (window.navigator.msSaveOrOpenBlob) 
-        window.navigator.msSaveOrOpenBlob(file, file_name);
-    else { 
-        var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = file_name;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);  
-        }, 0); 
-    }
-}
+// used in buttons that have been removed
+// function downloadFiles(data, file_name, file_type) {
+//     var file = new Blob([data], {type: file_type});
+//     if (window.navigator.msSaveOrOpenBlob) 
+//         window.navigator.msSaveOrOpenBlob(file, file_name);
+//     else { 
+//         var a = document.createElement("a"),
+//                 url = URL.createObjectURL(file);
+//         a.href = url;
+//         a.download = file_name;
+//         document.body.appendChild(a);
+//         a.click();
+//         setTimeout(function() {
+//             document.body.removeChild(a);
+//             window.URL.revokeObjectURL(url);  
+//         }, 0); 
+//     }
+// }
 
    
    
@@ -76,19 +78,21 @@ var elem = {
     svg: d3.select("body").append("svg")
         .attr("id", "topology")
         .attr("width", CONF.force.width)
-        .attr("height", CONF.force.height),
-    sw: d3.select("body").append("button")
-        .on("click", function(){ var j = JSON.stringify(topo.nodes); downloadFiles(j,"switchs","json")})
-        .text("SaveSwitchs"),
-    hs: d3.select("body").append("button")
-        .on("click", function(){ var j = JSON.stringify(topo.hosts); downloadFiles(j,"hosts","json")})
-        .text("SaveHosts"),
-    lk: d3.select("body").append("button")
-        .on("click", function(){ var j = JSON.stringify(topo.links); downloadFiles(j,"links","json")})
-        .text("SaveLinks"),
-    console: d3.select("body").append("div")
-        .attr("id", "console")
-        .attr("width", CONF.force.width)
+        .attr("height", CONF.force.height)
+    // buttons
+    // sw: d3.select("body").append("button")
+    //     .on("click", function(){ var j = JSON.stringify(topo.nodes); downloadFiles(j,"switchs","json")})
+    //     .text("SaveSwitchs"),
+    // hs: d3.select("body").append("button")
+    //     .on("click", function(){ var j = JSON.stringify(topo.hosts); downloadFiles(j,"hosts","json")})
+    //     .text("SaveHosts"),
+    // lk: d3.select("body").append("button")
+    //     .on("click", function(){ var j = JSON.stringify(topo.links); downloadFiles(j,"links","json")})
+    //     .text("SaveLinks"),
+    // console
+    // console: d3.select("body").append("div")
+    //     .attr("id", "console")
+    //     .attr("width", CONF.force.width)
 };
 function _tick() {
     elem.link.attr("x1", function(d) {   return d.source.x;  })
@@ -106,15 +110,16 @@ function _tick() {
 elem.drag = elem.force.drag().on("dragstart", _dragstart);
 function _dragstart(d) {
     var dpid = dpid_to_int(d.dpid)
-    d3.json("/stats/flow/" + dpid, function(e, data) {
-        flows = data[dpid];
-        console.log(flows);
-        elem.console.selectAll("ul").remove();
-        li = elem.console.append("ul")
-            .selectAll("li");
-        li.data(flows).enter().append("li")
-            .text(function (d) { return JSON.stringify(d, null, " "); });
-    });
+    // for console
+    // d3.json("/stats/flow/" + dpid, function(e, data) {
+    //     flows = data[dpid];
+    //     console.log(flows);
+    //     elem.console.selectAll("ul").remove();
+    //     li = elem.console.append("ul")
+    //         .selectAll("li");
+    //     li.data(flows).enter().append("li")
+    //         .text(function (d) { return JSON.stringify(d, null, " "); });
+    // });
     d3.select(this).classed("fixed", d.fixed = true);
 }
 
@@ -149,7 +154,8 @@ elem.update = function () {
         .attr("x", -CONF.image.width/2)
         .attr("y", -CONF.image.height/2)
         .attr("width", CONF.image.width)
-        .attr("height", CONF.image.height);
+        .attr("height", CONF.image.height)
+        .attr("class", 'node-img');
     nodeEnter.append("text")
         .attr("dx", -CONF.image.width/2)
         .attr("dy", CONF.image.height-10)
@@ -311,7 +317,7 @@ var topo = {
                     link.src.port_no == this.links[i].port.src.port_no &&
                     link.dst.dpid == this.links[i].port.dst.dpid &&
                     link.dst.port_no == this.links[i].port.dst.port_no) {
-                return i;
+                return i;    
             }
             
             
