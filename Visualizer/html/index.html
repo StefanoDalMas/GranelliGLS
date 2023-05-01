@@ -11,29 +11,30 @@
 <h2>GUI Live Slicing</h2>
 
 <div class="buttons">
-    <button class="green">Start</button>
-    <button class="red">Stop</button>
-    <button class="blue">Reset</button>
+    <button class="green" id="start" onclick="startHandler()">Start</button>
+    <button class="red" onclick="stopHandler()">Stop</button>
+    <button class="blue" onclick="resetHandler()">Reset</button>
 </div>
 <div class="flex-switches">
     <div class="switches">
         <div class="switch-elem">
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" onclick="critical1Handler()">
                 <span class="slider round"></span>
             </label>
-            <h3>prova 1</h3>
+            <h3>critical 1</h3>
         </div>
         <div class="switch-elem">
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" onclick="critical2Handler()">
                 <span class="slider round"></span>
             </label>
-            <h3>prova 2</h3>
+            <h3>critical 2</h3>
         </div>
     </div>
 </div>
 
+<script src="./buttonHandlers.js"></script>
 <script src="./ryu.topology.js" charset="utf-8"></script>
 </body>
 </html>
