@@ -5,7 +5,6 @@ from mininet.node import RemoteController, OVSKernelSwitch
 from mininet.net import Mininet
 from mininet.link import TCLink
 from mininet.cli import CLI
-import os
 
 
 class OnDemandSlicingTopo(Topo):
