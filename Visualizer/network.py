@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 from mininet.topo import Topo
 from mininet.node import RemoteController, OVSKernelSwitch
 from mininet.net import Mininet
@@ -51,6 +52,12 @@ if __name__ == "__main__":
         autoSetMacs=True,
         autoStaticArp=True,
     )
+    # pid = os.getpid()
+    # os.chdir("../")
+    # fd = open("pid.txt", "w")
+    # fd.write(str(pid))
+    # fd.close()
+    # os.chdir("Visualizer")
     net.build()  # build the netwwork
     net.start()  # start the network
     CLI(net)  # give the control to the user
