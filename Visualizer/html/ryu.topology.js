@@ -41,9 +41,9 @@ function dpid_to_int(dpid) {
 }
 function image(tmp){
     if (tmp!=undefined){
-        return "./router.png"
+        return "router.png"
     }else{
-        return "./host.png"
+        return "host.png"
     }
 }
 // used in buttons that have been removed
@@ -146,7 +146,8 @@ elem.update = function () {
     var nodeEnter = this.node.enter().append("g")
         .attr("class", "node")
         .on("dblclick", function(d) { d3.select(this).classed("fixed", d.fixed = false); })
-        .call(this.drag);
+        // to enable drag
+        // .call(this.drag);
     
    
     nodeEnter.append("image")
@@ -279,14 +280,14 @@ var topo = {
     },
     
     delete_links: function (links) {
-        // for (var i = 0; i < links.length; i++) {
-        //     if (!is_valid_link(links[i])) continue;
-        //     console.log(links[i])
-        //     console.log("delete link: " + JSON.stringify(links[i]));
+        for (var i = 0; i < links.length; i++) {
+            if (!is_valid_link(links[i])) continue;
+            console.log(links[i])
+            console.log("delete link: " + JSON.stringify(links[i]));
 
-        //     link_index = this.get_link_index(links[i]);
-        //     this.links.splice(link_index, 1);
-        // }
+            link_index = this.get_link_index(links[i]);
+            this.links.splice(link_index, 1);
+        }
     },
     get_node_index: function (node) {
         for (var i = 0; i < this.nodes.length; i++) {
@@ -418,8 +419,8 @@ var rpc = {
         return "";
     },
     event_link_delete: function (links) {
-        topo.delete_links(links);
-        elem.update();
+        // topo.delete_links(links);
+        // elem.update();
         return "";
     },
    

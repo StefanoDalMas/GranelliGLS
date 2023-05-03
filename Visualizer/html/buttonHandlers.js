@@ -1,8 +1,3 @@
-// capire come fare per resettare lo stile dei link quando si disattiva un link o si stoppa il network
-// l'handler dovrebbe prendere un parametro per dire se lo switch è stato spento o acceso
-    // basta fare una variabile globale per ogni switch che cambia ogni volta che viene premuto
-// attenzione anche agli altri bottoni
-
 var text = document.getElementById("netStatus")
 
 var started = false
@@ -13,6 +8,31 @@ var currentText = ''
 
 document.getElementById("crit1").disabled = true
 document.getElementById("crit2").disabled = true
+
+var textDefault = 
+    'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
+    'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
+    'Slice Crit1 (h5 <-> h6): Not Active <br>' +
+    'Slice Crit2 (h7 <-> h8): Not Active'
+
+var textCrit1 = 
+    'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
+    'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
+    'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
+    'Slice Crit2 (h7 <-> h8): Not Active'
+
+var textCrit2 = 
+    'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
+    'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
+    'Slice Crit1 (h5 <-> h6): Not Active <br>' +
+    'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps'
+
+var textBoth =
+    'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
+    'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
+    'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
+    'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps'
+
 
 function startHandler(){
 
@@ -43,11 +63,7 @@ function startHandler(){
         // document.getElementById("5").style.stroke = color2
         // document.getElementById("5").style.strokeWidth = '5'
 
-        currentText = 
-        'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
-        'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
-        'Slice Crit1 (h5 <-> h6): Not Active <br>' +
-        'Slice Crit2 (h7 <-> h8): Not Active'
+        currentText = textDefault
 
         text.innerHTML = currentText
         
@@ -100,60 +116,39 @@ function stopHandler(){
 function critical1Handler(){
 
     if (started){
-        // if I press crit1 and both are not pressed
-        if (!crit1 && !crit2){
-            // crit1 e basta
-            crit1 = true
-            text.innerHTML = 'crit1'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
-            'Slice Crit2 (h7 <-> h8): Not Active'
+        if (!crit1 && !crit2){
+            crit1 = true
+
+            currentText = textCrit1
 
             fetch("http://192.168.56.2:8081/critical1")
             .then(response => response.text())
             .then(text => console.log(text))
-        //  if I press crit1 and it was the only pressed
-        } else if (crit1 && !crit2) {
-            // default
-            crit1 = false
-            text.innerHTML = 'default'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Not Active <br>' +
-            'Slice Crit2 (h7 <-> h8): Not Active'
+        } else if (crit1 && !crit2) {
+            
+            crit1 = false
+
+            currentText = textDefault
 
             fetch("http://192.168.56.2:8081/default")
             .then(response => response.text())
             .then(text => console.log(text))
         } else if (!crit1 && crit2) {
-            // entrambi
-            crit1 = true
-            text.innerHTML = 'both'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
-            'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps'
+            crit1 = true
+
+            currentText = textBoth
 
             fetch("http://192.168.56.2:8081/critical12")
             .then(response => response.text())
             .then(text => console.log(text))
         } else {    
-            // solo il 2
-            crit1 = false
-            text.innerHTML = 'crit2'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Not Active <br>' +
-            'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps'
+            crit1 = false
+
+            currentText = textCrit2
 
             fetch("http://192.168.56.2:8081/critical2")
             .then(response => response.text())
@@ -186,57 +181,37 @@ function critical2Handler(){
 
     if (started){
         if (!crit1 && !crit2){
-            // crit2 e basta
-            crit2 = true
-            text.innerHTML = 'crit2'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Not Active <br>' +
-            'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps'
+            crit2 = true
+
+            currentText = textCrit2
 
             fetch("http://192.168.56.2:8081/critical2")
             .then(response => response.text())
             .then(text => console.log(text))
         } else if (crit1 && !crit2) {
-            // both
-            crit2 = true
-            text.innerHTML = 'both'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
-            'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps'
+            crit2 = true
+
+            currentText = textBoth
 
             fetch("http://192.168.56.2:8081/critical12")
             .then(response => response.text())
             .then(text => console.log(text))
         } else if (!crit1 && crit2) {
-            // default
-            crit2 = false
-            text.innerHTML = 'default'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Not Active <br>' +
-            'Slice Crit2 (h7 <-> h8): Not Active'
+            crit2 = false
+
+            currentText = textDefault
 
             fetch("http://192.168.56.2:8081/default")
             .then(response => response.text())
             .then(text => console.log(text))
         } else {
-            // solo il 1
-            crit2 = false
-            text.innerHTML = 'crit1'
 
-            currentText = 
-            'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
-            'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
-            'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
-            'Slice Crit2 (h7 <-> h8): Not Active'
+            crit2 = false
+
+            currentText = textCrit1
 
             fetch("http://192.168.56.2:8081/critical1")
             .then(response => response.text())

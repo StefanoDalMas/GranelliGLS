@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
+    <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link rel="icon" type="image/x-icon" href="hub.png">
 </head>
 <body>
-<h1>Granelli GLS</h1>
-<h2>GUI Live Slicing</h2>
+    <h1>Granelli GLS</h1>
+    <h2>GUI Live Slicing</h2>
 
-<div class="buttons">
-    <button class="green" id="start" onclick="startHandler()">Start</button>
-    <button class="red" onclick="stopHandler()">Stop</button>
-</div>
-<div class="flex-switches">
-    <div class="switches">
-        <div class="switch-elem">
-            <label class="switch">
-                <input id="crit1" type="checkbox" onclick="critical1Handler()">
-                <span class="slider round"></span>
-            </label>
-            <h3>critical 1</h3>
-        </div>
-        <div class="switch-elem">
-            <label class="switch">
-                <input id="crit2" type="checkbox" onclick="critical2Handler()">
-                <span class="slider round"></span>
-            </label>
-            <h3>critical 2</h3>
+    <div class="buttons">
+        <button class="green" id="start" onclick="startHandler()">Start</button>
+        <button class="red" onclick="stopHandler()">Stop</button>
+    </div>
+    <div class="flex-switches">
+        <div class="switches">
+            <div class="switch-elem">
+                <label class="switch">
+                    <input id="crit1" type="checkbox" onclick="critical1Handler()">
+                    <span class="slider round"></span>
+                </label>
+                <h3>critical 1</h3>
+            </div>
+            <div class="switch-elem">
+                <label class="switch">
+                    <input id="crit2" type="checkbox" onclick="critical2Handler()">
+                    <span class="slider round"></span>
+                </label>
+                <h3>critical 2</h3>
+            </div>
         </div>
     </div>
-</div>
 
 
-<script src="./ryu.topology.js" charset="utf-8"></script>
-<script src="networkStatus.js"></script>
-<script src="./buttonHandlers.js"></script>
-<link rel="stylesheet" type="text/css" href="./ryu.topology.css">
+    <script src="./ryu.topology.js" charset="utf-8"></script>
+    <script type="module" src="networkStatus.js"></script>
+    <script src="./buttonHandlers.js"></script>
+    <link rel="stylesheet" type="text/css" href="./appStyle.css">
+    <link rel="stylesheet" type="text/css" href="./topology.css">
 </body>
 </html>
