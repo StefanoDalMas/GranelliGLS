@@ -279,14 +279,14 @@ var topo = {
     },
     
     delete_links: function (links) {
-        for (var i = 0; i < links.length; i++) {
-            if (!is_valid_link(links[i])) continue;
-            console.log(links[i])
-            console.log("delete link: " + JSON.stringify(links[i]));
+        // for (var i = 0; i < links.length; i++) {
+        //     if (!is_valid_link(links[i])) continue;
+        //     console.log(links[i])
+        //     console.log("delete link: " + JSON.stringify(links[i]));
 
-            link_index = this.get_link_index(links[i]);
-            this.links.splice(link_index, 1);
-        }
+        //     link_index = this.get_link_index(links[i]);
+        //     this.links.splice(link_index, 1);
+        // }
     },
     get_node_index: function (node) {
         for (var i = 0; i < this.nodes.length; i++) {

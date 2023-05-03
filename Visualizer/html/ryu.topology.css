@@ -22,28 +22,20 @@ h2{
     border-radius: 10px;
     margin: 10px;
 }
-/* .topology_filter{
-    position: relative;
-    z-index: 99 !important;
-    width: 1960px;
-    height: 1700px;
-    left: 100px;
-    background-color: #000000;
-} */
 
 .buttons{
-    margin: 50px 20px 20px 20px;
+    margin: 35px 20px 20px 20px;
 }
 
 button{
     transition: 0.2s;
-    margin: 5px;
-    padding: 5px 10px;
+    margin: 5px 20px;
+    padding: 5px 15px;
     border-radius: 5px;
     border: 2px solid black;
     box-shadow: 2px 2px 2px grey;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 500;
 }
 button:active{
@@ -55,15 +47,21 @@ button:hover{
 }
 
 
-.green:active{
+.green:active, .green:hover{
     background-color: rgb(148, 218, 148);
 }
-.red:active{
+.red:active, .red:hover{
     background-color: red;
 }
-.blue:active{
+.blue:active, .blue:hover{
     background-color: #6bbbfd;
 }
+
+#netStatus{
+    font-size: 20px;
+}
+
+
 
 .flex-switches{
     display: flex;
@@ -181,3 +179,12 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+
+
+
+
+/* 
+#node18{
+    transform: translate(100px, 100px);
+} */

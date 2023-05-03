@@ -12,20 +12,19 @@
 <div class="buttons">
     <button class="green" id="start" onclick="startHandler()">Start</button>
     <button class="red" onclick="stopHandler()">Stop</button>
-    <button class="blue" onclick="resetHandler()">Reset</button>
 </div>
 <div class="flex-switches">
     <div class="switches">
         <div class="switch-elem">
             <label class="switch">
-                <input type="checkbox" onclick="critical1Handler()">
+                <input id="crit1" type="checkbox" onclick="critical1Handler()">
                 <span class="slider round"></span>
             </label>
             <h3>critical 1</h3>
         </div>
         <div class="switch-elem">
             <label class="switch">
-                <input type="checkbox" onclick="critical2Handler()">
+                <input id="crit2" type="checkbox" onclick="critical2Handler()">
                 <span class="slider round"></span>
             </label>
             <h3>critical 2</h3>
@@ -35,8 +34,8 @@
 
 
 <script src="./ryu.topology.js" charset="utf-8"></script>
-<script src="./buttonHandlers.js"></script>
 <script src="networkStatus.js"></script>
+<script src="./buttonHandlers.js"></script>
 <link rel="stylesheet" type="text/css" href="./ryu.topology.css">
 </body>
 </html>
