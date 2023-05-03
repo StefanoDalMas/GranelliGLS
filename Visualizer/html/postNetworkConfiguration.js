@@ -1,4 +1,4 @@
-import {positionLink, positionNode, positionPort} from './topologyLinks.js'
+import {positionLink, positionNode, positionPort} from './topologyPositioning.js'
 
 const topology = document.getElementById("topology");
 const netStatusContainer = document.createElement("div");
