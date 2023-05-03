@@ -3,6 +3,8 @@ const {spawn} = require('child_process');
 const {exec} = require('child_process');
 const app = express()
 
+var PID = 0
+
 app.get('/start', (req, res) => {
   // Allow origin
   res.header("Access-Control-Allow-Origin", "http://192.168.56.2:8080")
