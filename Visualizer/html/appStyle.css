@@ -62,24 +62,6 @@ button:hover{
 }
 
 
-
-.flex-switches{
-    display: flex;
-}
-
-.switches{
-    margin: 0 auto;
-    display: flex;
-}
-
-.switch-elem{
-    padding: 10px;
-}
-.switch-elem h3{
-    margin: 0;
-    margin-top: 20px;
-}
-
 .node.fixed {
     fill: #434343;
 }
@@ -116,7 +98,23 @@ button:hover{
 
 
 
+/* switches */
+.flex-switches{
+    display: flex;
+}
 
+.switches{
+    margin: 0 auto;
+    display: flex;
+}
+
+.switch-elem{
+    padding: 10px;
+}
+.switch-elem h3{
+    margin: 0;
+    margin-top: 20px;
+}
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -181,10 +179,34 @@ input:checked + .slider:before {
 }
 
 
+.activeSlice{
+    stroke-width: 5;
+}
+.activeCrit{
+    stroke-width: 5;
+}
 
+.slice1.activeSlice{
+    stroke: #0061b0;
+}
 
+.slice2.activeSlice{
+    stroke: #0014a8;
+}
 
-/* 
-#node18{
-    transform: translate(100px, 100px);
-} */
+.crit1.activeCrit{
+    stroke: #099e2f;
+}
+
+.crit2.activeCrit{
+    stroke: #ea6bed;
+}
+
+.clogged1{
+    stroke: #ec3b13 !important;
+}
+
+.clogged2{
+    stroke: #ec6d13 !important;
+}
+

@@ -9,8 +9,9 @@ netStatus.id = "netStatus"
 
 netStatusContainer.appendChild(netStatus)
 
-
+netStatus.innerHTML = 'Adjusting topology...'
 topology.parentNode.insertBefore(netStatusContainer, topology.nextSibling)
+
 setTimeout(() => {  
     var children = topology.children;
     let j = 0;
@@ -24,4 +25,9 @@ setTimeout(() => {
             positionPort(child, child.getElementsByTagName('text').item(0).innerHTML)
         }
     }
-}, 7000);
+    netStatus.innerHTML = 'Adjusted!'
+}, 6500);
+
+setTimeout(() => {
+    netStatus.innerHTML = ''
+}, 8000)

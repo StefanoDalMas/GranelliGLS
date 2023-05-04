@@ -24,66 +24,79 @@ export const positionLink = function(child, i){
             child.setAttribute('y1', row2)
             child.setAttribute('x2', s1x)
             child.setAttribute('y2', s1y)
+            child.classList.add('slice1')
             break;
         case 1:
             child.setAttribute('x1', s1x)
             child.setAttribute('y1', s1y)
             child.setAttribute('x2', s3x)
             child.setAttribute('y2', s3y)
+            child.classList.add('slice1')
+            child.classList.add('crit2')
             break;
         case 2:
             child.setAttribute('x1', s3x)
             child.setAttribute('y1', s3y)
             child.setAttribute('x2', s2x)
             child.setAttribute('y2', s2y)
+            child.classList.add('slice1')
             break;
         case 3:
             child.setAttribute('x1', s2x)
             child.setAttribute('y1', s2y)
             child.setAttribute('x2', col5)
             child.setAttribute('y2', row2)
+            child.classList.add('slice1')
             break;
         case 4:
             child.setAttribute('x1', col1)
             child.setAttribute('y1', row3)
             child.setAttribute('x2', s1x)
             child.setAttribute('y2', s1y)
+            child.classList.add('slice2')
             break;
         case 5:
             child.setAttribute('x1', s1x)
             child.setAttribute('y1', s1y)
             child.setAttribute('x2', s2x)
             child.setAttribute('y2', s2y)
+            child.classList.add('slice2')
+            child.classList.add('crit1')
             break;
         case 6:
             child.setAttribute('x1', s2x)
             child.setAttribute('y1', s2y)
             child.setAttribute('x2', col5)
             child.setAttribute('y2', row3)
+            child.classList.add('slice2')
             break;
         case 7:
             child.setAttribute('x1', col2)
             child.setAttribute('y1', row4)
             child.setAttribute('x2', s1x)
             child.setAttribute('y2', s1y)
+            child.classList.add('crit1')
             break;
         case 8:
             child.setAttribute('x1', s2x)
             child.setAttribute('y1', s2y)
             child.setAttribute('x2', col4)
             child.setAttribute('y2', row4)
+            child.classList.add('crit1')
             break;
         case 9:
             child.setAttribute('x1', s1x)
             child.setAttribute('y1', s1y)
             child.setAttribute('x2', col2)
             child.setAttribute('y2', row1)
+            child.classList.add('crit2')
             break;
         case 10:
             child.setAttribute('x1', s3x)
             child.setAttribute('y1', s3y)
             child.setAttribute('x2', col3)
             child.setAttribute('y2', row1)
+            child.classList.add('crit2')
             break;
         default:
             break;
@@ -145,7 +158,6 @@ var ports = [3, 3, 3, 2, 2, 1]
 var tmpCoordX = 0
 var tmpCoordY = 0
 export const positionPort = function(child, text) {
-    console.log(text)
     if (text === '1') {
         switch (ports[0]) {
             case 3:

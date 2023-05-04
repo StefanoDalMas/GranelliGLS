@@ -1,10 +1,11 @@
-var text = document.getElementById("netStatus")
+const pText = document.getElementById("netStatus")
 
 var started = false
 var crit1 = false
 var crit2 = false
 
 var currentText = ''
+var objList = []
 
 document.getElementById("crit1").disabled = true
 document.getElementById("crit2").disabled = true
@@ -36,50 +37,44 @@ var textBoth =
 
 function startHandler(){
 
+    const pText = document.getElementById("netStatus")
+
     if (!started){
 
         started = true
         document.getElementById("crit1").disabled = false
         document.getElementById("crit2").disabled = false
 
-        // link coloring
-        // 1 <-> 3
-        // cambia e metti nel css -> qua devi solo assegnare la classe o toglierla
-        // const color1 = '#0061b0'
-        // document.getElementById("0").style.stroke = color1
-        // document.getElementById("0").style.strokeWidth = '5'
-        // document.getElementById("2").style.stroke = color1
-        // document.getElementById("2").style.strokeWidth = '5'
-        // document.getElementById("4").style.stroke = color1
-        // document.getElementById("4").style.strokeWidth = '5'
-        // document.getElementById("6").style.stroke = color1
-        // document.getElementById("6").style.strokeWidth = '5'
-        // // 2 <-> 4
-        // const color2 = '#0014a8'
-        // document.getElementById("10").style.stroke = color2
-        // document.getElementById("10").style.strokeWidth = '5'
-        // document.getElementById("1").style.stroke = color2
-        // document.getElementById("1").style.strokeWidth = '5'
-        // document.getElementById("5").style.stroke = color2
-        // document.getElementById("5").style.strokeWidth = '5'
+        objList = document.getElementsByClassName("slice1")
+        for(var i=0; i<objList.length; i++){
+            var link = objList[i]
+            link.classList.add('activeSlice')
+        }
+        objList = document.getElementsByClassName("slice2")
+        for(var i=0; i<objList.length; i++){
+            var link = objList[i]
+            link.classList.add('activeSlice')
+        }   
 
         currentText = textDefault
 
-        text.innerHTML = currentText
-        
+        pText.innerHTML = currentText
+
         fetch("http://192.168.56.2:8081/default")
         .then(response => response.text())
         .then(text => console.log(text))
     } else {
-        text.innerHTML = 'Network already started'
+        pText.innerHTML = 'Network already started'
         setTimeout(() => {  
-            text.innerHTML = currentText
+            pText.innerHTML = currentText
         }, 2000);
     }
     
 }
 
 function stopHandler(){
+
+    const pText = document.getElementById("netStatus")
 
     if (started){
         started = false
@@ -92,21 +87,44 @@ function stopHandler(){
         document.getElementById("crit1").disabled = true
         document.getElementById("crit2").disabled = true
 
-        text.innerHTML = 'Network stopped'
+        objList = document.getElementsByClassName("slice1")
+        for(var i=0; i<objList.length; i++){
+            var link = objList[i]
+            link.classList.remove('activeSlice')
+        }
+        objList = document.getElementsByClassName("slice2")
+        for(var i=0; i<objList.length; i++){
+            var link = objList[i]
+            link.classList.remove('activeSlice')
+        }
+        objList = document.getElementsByClassName("crit1")
+        for(var i=0; i<objList.length; i++){
+            var link = objList[i]
+            link.classList.remove('activeCrit')
+        }
+        objList = document.getElementsByClassName("crit2")
+        for(var i=0; i<objList.length; i++){
+            var link = objList[i]
+            link.classList.remove('activeCrit')
+        }
+        document.getElementById('link1').classList.remove('clogged1')
+        document.getElementById('link5').classList.remove('clogged2')
+
+        pText.innerHTML = 'Network stopped'
 
         currentText = ''
         setTimeout(() => {  
-            text.innerHTML = currentText
+            pText.innerHTML = currentText
         }, 2000);
 
         fetch("http://192.168.56.2:8081/stop")
         .then(response => response.text())
         .then(text => console.log(text))
     } else {
-        text.innerHTML = 'Network already stopped'
+        pText.innerHTML = 'Network already stopped'
 
         setTimeout(() => {  
-            text.innerHTML = currentText
+            pText.innerHTML = currentText
         }, 2000);
     }
 
@@ -115,12 +133,21 @@ function stopHandler(){
 
 function critical1Handler(){
 
+    const pText = document.getElementById("netStatus")
+
     if (started){
 
         if (!crit1 && !crit2){
             crit1 = true
 
             currentText = textCrit1
+
+            objList = document.getElementsByClassName("crit1")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.add('activeCrit')
+            }
+            document.getElementById('link5').classList.add('clogged2')
 
             fetch("http://192.168.56.2:8081/critical1")
             .then(response => response.text())
@@ -132,6 +159,13 @@ function critical1Handler(){
 
             currentText = textDefault
 
+            objList = document.getElementsByClassName("crit1")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.remove('activeCrit')
+            }
+            document.getElementById('link5').classList.remove('clogged2')
+
             fetch("http://192.168.56.2:8081/default")
             .then(response => response.text())
             .then(text => console.log(text))
@@ -140,6 +174,13 @@ function critical1Handler(){
             crit1 = true
 
             currentText = textBoth
+
+            objList = document.getElementsByClassName("crit1")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.add('activeCrit')
+            }
+            document.getElementById('link5').classList.add('clogged2')
 
             fetch("http://192.168.56.2:8081/critical12")
             .then(response => response.text())
@@ -150,34 +191,27 @@ function critical1Handler(){
 
             currentText = textCrit2
 
+            objList = document.getElementsByClassName("crit1")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.remove('activeCrit')
+            }
+            document.getElementById('link5').classList.remove('clogged2')
+
+
             fetch("http://192.168.56.2:8081/critical2")
             .then(response => response.text())
             .then(text => console.log(text))
         }
 
-        text.innerHTML = currentText
+        pText.innerHTML = currentText
     }
-
-    // link coloring
-    // const normalColor = '#099e2f'
-    // const critColor = '#f55c0a'
-    // document.getElementById("3").style.stroke = normalColor
-    // document.getElementById("3").style.strokeWidth = '5'
-    // document.getElementById("1").style.stroke = critColor
-    // document.getElementById("1").style.strokeWidth = '5'
-    // document.getElementById("8").style.stroke = normalColor
-    // document.getElementById("8").style.strokeWidth = '5'
-
-    // document.getElementById("netStatus").innerHTML = 
-    // 'Slice 1 (h1 <-> h3) : Active, Bandwidth: 10 Mbps <br>' +
-    // 'Slice 2 (h2 <-> h4) : Active, Bandwidth: 3 Mbps <br>' +
-    // 'Slice Crit1 (h5 <-> h6): Active, Bandwidth: 7 Mbps <br>' +
-    // 'Slice Crit2 (h7 <-> h8): Not Active <br>'
-
     
 }
 
 function critical2Handler(){
+
+    const pText = document.getElementById("netStatus")
 
     if (started){
         if (!crit1 && !crit2){
@@ -185,6 +219,13 @@ function critical2Handler(){
             crit2 = true
 
             currentText = textCrit2
+
+            objList = document.getElementsByClassName("crit2")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.add('activeCrit')
+            }
+            document.getElementById('link1').classList.add('clogged1')
 
             fetch("http://192.168.56.2:8081/critical2")
             .then(response => response.text())
@@ -195,6 +236,13 @@ function critical2Handler(){
 
             currentText = textBoth
 
+            objList = document.getElementsByClassName("crit2")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.add('activeCrit')
+            }
+            document.getElementById('link1').classList.add('clogged1')
+
             fetch("http://192.168.56.2:8081/critical12")
             .then(response => response.text())
             .then(text => console.log(text))
@@ -203,6 +251,13 @@ function critical2Handler(){
             crit2 = false
 
             currentText = textDefault
+
+            objList = document.getElementsByClassName("crit2")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.remove('activeCrit')
+            }
+            document.getElementById('link1').classList.remove('clogged1')
 
             fetch("http://192.168.56.2:8081/default")
             .then(response => response.text())
@@ -213,26 +268,19 @@ function critical2Handler(){
 
             currentText = textCrit1
 
+            objList = document.getElementsByClassName("crit2")
+            for(var i=0; i<objList.length; i++){
+                var link = objList[i]
+                link.classList.remove('activeCrit')
+            }
+            document.getElementById('link1').classList.remove('clogged1')
+
             fetch("http://192.168.56.2:8081/critical1")
             .then(response => response.text())
             .then(text => console.log(text))
         }
     }
 
-    text.innerHTML = currentText
-    // link coloring
-    // const normalColor = '#11d698'
-    // const critColor = '#b00222'
-    // document.getElementById("7").style.stroke = normalColor
-    // document.getElementById("7").style.strokeWidth = '5'
-    // document.getElementById("0").style.stroke = critColor
-    // document.getElementById("0").style.strokeWidth = '5'
-    // document.getElementById("9").style.stroke = normalColor
-    // document.getElementById("9").style.strokeWidth = '5'
+    pText.innerHTML = currentText
 
-    // document.getElementById("netStatus").innerHTML = 
-    //     'Slice 1 (h1 <-> h3) : Active, Bandwidth: 3 Mbps <br>' +
-    //     'Slice 2 (h2 <-> h4) : Active, Bandwidth: 10 Mbps <br>' +
-    //     'Slice Crit1 (h5 <-> h6): Not Active <br>' +
-    //     'Slice Crit2 (h7 <-> h8): Active, Bandwidth: 7 Mbps <br>'
 }
