@@ -1,5 +1,6 @@
 #!/bin/bash
 
+node server.js & echo $! > pid.txt
 sudo mn -c &>/dev/null
 echo "Cleared Mininet"
 cd Visualizer/

@@ -52,13 +52,14 @@ if __name__ == "__main__":
         autoSetMacs=True,
         autoStaticArp=True,
     )
-    # pid = os.getpid()
-    # os.chdir("../")
-    # fd = open("pid.txt", "w")
-    # fd.write(str(pid))
-    # fd.close()
-    # os.chdir("Visualizer")
     net.build()  # build the netwwork
     net.start()  # start the network
     CLI(net)  # give the control to the user
+    os.chdir("../")
+    fd = open("pid.txt", "r")
+    pid = fd.readline()
+    fd.close()
+    os.system("kill -9 " + pid)
+    os.remove("pid.txt")
+    os.chdir("Visualizer")
     net.stop()
