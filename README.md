@@ -47,7 +47,7 @@ We decided to mix two projects into one:
 
 Here is represented the project tree expanding only the relevant files.
 
-<img src="images/tree.png" width=35% height=35%></img>
+<img src="images/tree.png" width=45% height=45%></img>
 
 The main folders and file are:
 
