@@ -10,8 +10,20 @@ The project's name is composed of an acronym:
 
 ## Table of Contents
 
-da riempire
-ricordarsi di mettere il tree della repo con i file
+- [Requirements](#requirements)
+- [Goal](#goal)
+- [Project Structure](#project-structure)
+- [Installation Procedure](#installation-procedure)
+- [Tunneling](#tunneling)
+- [How to run the project](#how-to-run-the-project)
+- [Topology and slicing](#topology-and-slicing)
+  - [Default scenario](#default-scenario)
+  - [Upper critical scenario](#upper-critical-scenario)
+  - [Lower critical scenario](#lower-critical-scenario)
+  - [Both critical scenario](#both-critical-scenario)
+- [Useful Mininet commands](#useful-mininet-commands)
+- [Documentation](#documentation)
+- [Contributors](#contributors)
 
 ## Requirements
 
@@ -33,7 +45,16 @@ We decided to mix two projects into one:
 
 ## Project Structure
 
-Inserire Project tree e descrizione file rapida
+Here is represented the project tree expanding only the relevant files.
+
+<img src="images/tree.png" width=35% height=35%></img>
+
+The main folders and file are:
+
+- `starter.sh` that calls everything necessary to set up the application
+- `server.js` lets the visualizer launch bash scripts to dynamically change the status of the slices
+- `shell/` folder contains all the bash files needed to update in real time the slices
+- `Visualizer/` contains the ryu controller, the gui_start needed to visualize the webapp, the topology of the network and an html folder that contains all of the necessary scripts, style sheets and html to run the webapp
 
 ## Installation procedure
 
@@ -92,7 +113,12 @@ Our `<comnetsemu_location>` is `~/comnetsemu`, so we're going to use this from n
 ~$ cd comnetsemu/GranelliGLS
 ```
 
-5. Vedere cosa fare per runnare il progetto
+5. Run the bash file to start server, visualizer, controller and topology!
+
+```BASH
+~$ bash ./starter.sh
+```
+
 6. Once the webapp is up and running open your favourite browser and paste
 
 ```
@@ -100,6 +126,8 @@ http://192.168.56.2:8080
 ```
 
 Now you can interact with the WebApp!
+
+In the terminal where you ran the bash script you are given the mininet's CLI. In this way you can perform checks on the slices in real time!
 
 **Note** in step 2 and 3 it is not necessary to call `comnetsemu` after vagrant up and ssh, but it is advised in case of multiple VMs running in your machine at the same time.
 
@@ -111,7 +139,7 @@ Immagine Topologia
 
 ### Default Scenario
 
-Immagine Default
+<img src="images/status/Default.jpeg" width=90% height=90%></img>
 
 In the Default Scenario we have 4 hosts, 3 switches and 2 slcies are active:
 
@@ -130,7 +158,7 @@ If we check the connection among the hosts we get:
 
 ### Lower Critical Scenario
 
-Immagine Lower critical
+<img src="images/status/Critical1.jpeg" width=90% height=90%></img>
 
 In the lower critical scenario we add host 5 and host 6 to the network with an higher priority than the one before.
 
@@ -154,7 +182,7 @@ If we check the connection among the hosts we get:
 
 ### Upper Critical Scenario
 
-Immagine Upper critical
+<img src="images/status/Critical2.jpeg" width=90% height=90%></img>
 
 In the upper critical scenario we add host 7 and host 8 to the network with an higher priority than the one before.
 
@@ -178,7 +206,7 @@ If we check the connection among the hosts we get:
 
 ### Both Critical Scenario
 
-Immagine Both critical
+<img src="images/status/BothCritical.jpeg" width=90% height=90%></img>
 
 In this special scenario we add both host 5 and 6, and host 7 and host 8 to the network with an higher priority than the one before.
 
