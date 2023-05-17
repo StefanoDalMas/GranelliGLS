@@ -62,7 +62,7 @@ sudo ovs-ofctl add-flow s2 ip,priority=65500,nw_src=10.0.0.5,idle_timeout=0,acti
 sudo ovs-ofctl add-flow s2 ip,priority=65500,in_port=2,idle_timeout=0,actions=set_queue:123,output:3
 sudo ovs-ofctl add-flow s2 ip,priority=65500,in_port=3,idle_timeout=0,actions=set_queue:123,output:2
 sudo ovs-ofctl add-flow s2 ip,priority=65500,in_port=4,idle_timeout=0,actions=set_queue:234,output:1
-sudo ovs-ofctl add-flow s1 ip,priority=65500,in_port=5,idle_timeout=0,actions=set_queue:345,output:1
+sudo ovs-ofctl add-flow s2 ip,priority=65500,in_port=5,idle_timeout=0,actions=set_queue:345,output:1
 
 # [SWITCH 3]
 sudo ovs-ofctl add-flow s3 table=0,priority=65500,in_port=1,idle_timeout=0,actions=set_queue:123,output:2

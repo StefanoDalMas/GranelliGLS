@@ -8,7 +8,6 @@ focses
 - GUI
 - Live
 - Slicing
-  if yu're writing
 
 ## Table of Contents
 
