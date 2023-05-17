@@ -59,6 +59,7 @@ if __name__ == "__main__":
     fd = open("pid.txt", "r")
     pid = fd.readline()
     fd.close()
+    print("Killing the controller with pid: " + pid)
     os.system("kill -9 " + pid)
     os.remove("pid.txt")
     os.chdir("Visualizer")

@@ -1,8 +1,7 @@
 #!/bin/bash
 
 node server.js & echo $! > pid.txt
-sudo mn -c &>/dev/null
-echo "Cleared Mininet"
+sleep 1
 cd Visualizer/
 ryu-manager --observe-links gui_start.py controller.py &
 

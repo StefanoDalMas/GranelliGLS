@@ -3,10 +3,12 @@
 Project for "Virtualized and Softwarized mobile networks" course held by Dr. Granelli @ UniTN
 
 The project's name is composed of an acronym:
+focses
 
 - GUI
 - Live
 - Slicing
+  if yu're writing
 
 ## Table of Contents
 
@@ -239,6 +241,7 @@ Once the application is up and running you can run some code in mininet to check
 
 The `mininet>` is used instead of `~$` to underline the fact that we are inside the mininet CLI while the application is running and not on the standard terminal.
 
+it foces you to do somethign that you don't like
 The most useful commands are:
 
 - `mininet> nodes` to check the available nodes in the network
